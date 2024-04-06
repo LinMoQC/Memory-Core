@@ -8,6 +8,7 @@ import com.linmoblog.server.aspect.ApiOperationLog;
 import com.linmoblog.server.enums.ResultCode;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,31 +29,16 @@ import java.util.UUID;
 @Tag(name = "图片接口")
 @Slf4j
 public class ImageController {
-    @Autowired
+    @Resource
     private ImageService imageService;
-
-    @Value("${files.upload.path}")
-    private String uploadPath;
-
-    @Value("${files.domains.siteUrl}")
-    private String domain;
 
     @ApiOperationLog(description = "图片上传")
     @Operation(summary ="图片上传")
     @PostMapping("/upload")
     public Result<String> upload(@RequestParam MultipartFile file) {
         try {
-            String fileName = file.getOriginalFilename();
-            String saveFileName = UUID.randomUUID().toString() + '.' + FileUtil.extName(fileName);
-            String filePath = Paths.get(uploadPath, saveFileName).toString();
-            Path absolutePath = Paths.get(uploadPath).toAbsolutePath();
-            String absoluteFilePath = Paths.get(String.valueOf(absolutePath), saveFileName).toString();
-            file.transferTo(new File(absoluteFilePath));
-
-            String imageUrl = domain + "/upload/" + saveFileName;
-
-            return imageService.upload(imageUrl);
-        } catch (IOException e) {
+            return imageService.upload(file);
+        } catch (Exception e) {
             log.error("上传失败：{}", e.toString());
             return new Result<String>(ResultCode.ERROR_UPLOAD, null);
         }
@@ -65,21 +51,21 @@ public class ImageController {
         try {
             List<String> failedDeletions = new ArrayList<>();
             for (String fileName : fileNames) {
-                String f = extractFileName(fileName);
-                Path absolutePath = Paths.get(uploadPath).toAbsolutePath();
-                String filePath = Paths.get(String.valueOf(absolutePath), f).toString();
-                File file = new File(filePath);
-
-                String imageUrl = domain + "/upload/" + fileName;
+//                String f = extractFileName(fileName);
+//                Path absolutePath = Paths.get(uploadPath).toAbsolutePath();
+//                String filePath = Paths.get(String.valueOf(absolutePath), f).toString();
+//                File file = new File(filePath);
+//
+//                String imageUrl = domain + "/upload/" + fileName;
                 imageService.deleteFile(fileName);
-                if (file.exists()) {
-                    if (!file.delete()) {
-                        failedDeletions.add(f);
-                    }
-                } else {
-                    System.out.println(filePath + " 文件不存在");
-                    failedDeletions.add(f);
-                }
+//                if (file.exists()) {
+//                    if (!file.delete()) {
+//                        failedDeletions.add(f);
+//                    }
+//                } else {
+//                    System.out.println(filePath + " 文件不存在");
+//                    failedDeletions.add(f);
+//                }
             }
 
             if (failedDeletions.isEmpty()) {
