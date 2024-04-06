@@ -10,11 +10,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class ImageConfig implements WebMvcConfigurer {
-    @Value("${files.upload.absoultPath}")
-    private String absoultPath;
+    @Value("${files.upload.absolutePath}")
+    private String absolutePath;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**").addResourceLocations(absoultPath);
+        registry.addResourceHandler("/upload/**").addResourceLocations(absolutePath);
     }
 }

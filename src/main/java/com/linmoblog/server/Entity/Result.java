@@ -1,21 +1,24 @@
 package com.linmoblog.server.Entity;
 
-import lombok.AllArgsConstructor;
+import com.linmoblog.server.enums.ResultCode;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Objects;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Result<T> {
     private int code;
     private String message;
     private T data;
 
-    public Result(int code, String message) {
-        this.code = code;
-        this.message = message;
+    public Result(ResultCode resultCode) {
+        this.code = resultCode.getCode();
+        this.message = resultCode.getMessage();
+    }
+    public Result(ResultCode resultCode, T data) {
+        this.code = resultCode.getCode();
+        this.message = resultCode.getMessage();
+        this.data = data;
     }
 }

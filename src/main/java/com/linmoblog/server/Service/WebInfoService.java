@@ -6,6 +6,7 @@ import com.linmoblog.server.Entity.Social;
 import com.linmoblog.server.Entity.User;
 import com.linmoblog.server.Entity.WebInfo;
 import com.linmoblog.server.Utils.EncryptUtil;
+import com.linmoblog.server.enums.ResultCode;
 import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,17 +22,17 @@ public class WebInfoService {
         user.setPassword(webInfo.getUserPassword());
         EncryptUtil.encrypt(user);
         webInfoDao.updateWebInfo(webInfo,user);
-        return new Result<>(200,"ok",null);
+        return new Result<>(ResultCode.SUCCESS,null);
     }
 
     public Result<WebInfo> getWebInfo() {
         WebInfo webInfo = webInfoDao.getWebInfo();
         webInfo.setUserAccount(webInfo.getUserAccount());
-        return new Result<>(200,"ok",webInfo);
+        return new Result<>(ResultCode.SUCCESS,webInfo);
     }
 
     public Result<Social> getSocial() {
         Social social = webInfoDao.getSocial();
-        return new Result<>(200,"ok",social);
+        return new Result<>(ResultCode.SUCCESS,social);
     }
 }

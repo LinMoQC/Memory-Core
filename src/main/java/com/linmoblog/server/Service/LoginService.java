@@ -5,6 +5,7 @@ import com.linmoblog.server.Entity.Result;
 import com.linmoblog.server.Entity.User;
 import com.linmoblog.server.Entity.UserInfo;
 import com.linmoblog.server.Utils.JWTTokenUtil;
+import com.linmoblog.server.enums.ResultCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +20,10 @@ public class LoginService {
         User res = loginDao.login(user);
         if(res != null) {
             String token = JWTTokenUtil.CreateToken("admin");
-            Result<String> result = new Result<>(200, "Login successful", token);
+            Result<String> result = new Result<>(ResultCode.SUCCESS_LOGIN, token);
             return ResponseEntity.status(HttpStatus.OK).body(result);
         }
-        Result<String> result =  new Result<>(401, "Login failed",null);
+        Result<String> result =  new Result<>(ResultCode.ERROR_LOGIN,null);
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(result);
     }
 
