@@ -10,4 +10,8 @@
 ```bash
 cd Memory-Core
 mvn spring-boot:run
+
+初始账号：
+admin
+123456
 ```
