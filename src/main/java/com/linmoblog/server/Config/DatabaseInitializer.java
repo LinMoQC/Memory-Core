@@ -31,7 +31,7 @@ public class DatabaseInitializer implements CommandLineRunner {
     }
 
     private boolean checkUserTableExists() {
-        String sql = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'linmoblog' AND table_name = 'user'";
+        String sql = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'blog' AND table_name = 'user'";
         int count = jdbcTemplate.queryForObject(sql, Integer.class);
         return count > 0;
     }

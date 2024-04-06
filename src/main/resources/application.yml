@@ -1,13 +1,20 @@
 spring:
+  profiles:
+    active: dev
+  banner:
+    charset: UTF-8
+    location: banner.text
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 100MB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/memory
-    username: memory
+    url: jdbc:mysql://localhost:3306/blog
+    username: root
     password: 123456
+logging:
+  config: classpath:logback-blog.xml
 
 mybatis:
   configuration:
@@ -18,4 +25,22 @@ files:
     siteUrl: http://localhost:8080
   upload:
     path: src/main/resources/static/upload
-    absoultPath: xxxx   //绝对路径
+    absolutePath:  xxx //绝对路径
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'Memory Blog接口文档'
+      paths-to-match: '/**'
+      packages-to-scan: com.linmoblog.server.Controller
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn

@@ -4,6 +4,11 @@ import cn.hutool.core.io.FileUtil;
 import com.linmoblog.server.Entity.Image;
 import com.linmoblog.server.Entity.Result;
 import com.linmoblog.server.Service.ImageService;
+import com.linmoblog.server.aspect.ApiOperationLog;
+import com.linmoblog.server.enums.ResultCode;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,13 +19,14 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.rmi.AccessException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/protect")
+@Tag(name = "图片接口")
+@Slf4j
 public class ImageController {
     @Autowired
     private ImageService imageService;
@@ -31,6 +37,8 @@ public class ImageController {
     @Value("${files.domains.siteUrl}")
     private String domain;
 
+    @ApiOperationLog(description = "图片上传")
+    @Operation(summary ="图片上传")
     @PostMapping("/upload")
     public Result<String> upload(@RequestParam MultipartFile file) {
         try {
@@ -45,12 +53,13 @@ public class ImageController {
 
             return imageService.upload(imageUrl);
         } catch (IOException e) {
-            e.printStackTrace();
-            return new Result<String>(500, "上传失败: " + e.getMessage(), null);
+            log.error("上传失败：{}", e.toString());
+            return new Result<String>(ResultCode.ERROR_UPLOAD, null);
         }
     }
 
-
+    @ApiOperationLog(description = "图片删除")
+    @Operation(summary ="图片删除")
     @DeleteMapping("/delImg")
     public Result<Null> deleteFiles(@RequestBody List<String> fileNames) {
         try {
@@ -74,16 +83,19 @@ public class ImageController {
             }
 
             if (failedDeletions.isEmpty()) {
-                return new Result<>(200, "所有文件删除成功", null);
+                return new Result<>(ResultCode.SUCCESS_FILE_DEL, null);
             } else {
-                return new Result<>(500, "以下文件删除失败: " + failedDeletions, null);
+                log.error("以下文件未删除：{}", String.join(", ", failedDeletions));
+                return new Result<>(ResultCode.ERROR_FILE_DEL, null);
             }
         } catch (Exception e) {
-            return new Result<>(500, "文件删除失败：" + e.getMessage(), null);
+            log.error("文件删除失败：{}", e.toString());
+            return new Result<>(ResultCode.ERROR_FILE_DEL, null);
         }
     }
 
-
+    @ApiOperationLog(description = "获取所有图片")
+    @Operation(summary ="获取所有图片")
     @GetMapping("/images")
     public Result<List<Image>> getImages() throws Exception {
         return imageService.getImages();
