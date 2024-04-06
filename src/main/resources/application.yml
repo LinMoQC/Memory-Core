@@ -44,3 +44,10 @@ knife4j:
   enable: true
   setting:
     language: zh_cn
+
+blog:
+  minio:
+    endpoint: http://127.0.0.1:9000 # Minio服务所在地址
+    bucketName: memory # 存储桶名称
+    accessKey: memory # 访问的key
+    secretKey: memory # 访问的秘钥
