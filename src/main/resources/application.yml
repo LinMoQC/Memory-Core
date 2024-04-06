@@ -10,9 +10,9 @@ spring:
       max-request-size: 100MB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/linmoblog
+    url: jdbc:mysql://localhost:3306/blog
     username: root
-    password: hk200478
+    password: 123456
 logging:
   config: classpath:logback-blog.xml
 
