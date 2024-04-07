@@ -52,6 +52,7 @@ config_key 对应配置的 key，config_value 对应配置的 value。
 ## 文件存储
 文件存储目前继承了本地文件存储、阿里云 OSS 文件存储，后续会扩展更多的文件存储方式（Github、Gitee）
 同时只支持一种文件存储方式，如果配置了多种文件存储方式，则会有报错提示。
+> 说人话就是 ali.enable 和 local.enable 只能有一个为 true。
 ### 阿里云 OSS 文件存储
 在 application.yml 中修改配置
 ```yml
