@@ -31,31 +31,29 @@ public class ImageController {
 
     @Value("${local.uploadDir}")
     private String uploadDir;
+
     @ApiOperationLog(description = "图片上传")
-    @Operation(summary ="图片上传")
+    @Operation(summary = "图片上传")
     @PostMapping("/upload")
     public Result<String> upload(@RequestParam MultipartFile file) {
-        try {
-            return imageService.upload(file);
-        } catch (Exception e) {
-            log.error("上传失败：{}", e.toString());
-            return new Result<String>(ResultCode.ERROR_UPLOAD, null);
-        }
+        String fileUrl = imageService.upload(file);
+        return Result.success(fileUrl);
     }
 
     @ApiOperationLog(description = "图片删除")
-    @Operation(summary ="图片删除")
+    @Operation(summary = "图片删除")
     @DeleteMapping("/delImg")
-    public Result<Null> deleteFiles(@RequestBody List<String> fileNames) {
+    public Result<Void> deleteFiles(@RequestBody List<String> fileNames) {
         imageService.deleteFile(fileNames);
-        return new Result<>(ResultCode.SUCCESS, null);
+        return Result.success();
     }
 
     @ApiOperationLog(description = "获取所有图片")
-    @Operation(summary ="获取所有图片")
+    @Operation(summary = "获取所有图片")
     @GetMapping("/images")
     public Result<List<Image>> getImages() throws Exception {
-        return imageService.getImages();
+        List<Image> imageList = imageService.getImages();
+        return Result.success(imageList);
     }
 
 
@@ -67,9 +65,7 @@ public class ImageController {
         FileSystemResource file = new FileSystemResource(filePath.toFile());
 
         if (file.exists()) {
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + filename + "\"")
-                    .body(file);
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + filename + "\"").body(file);
         } else {
             return ResponseEntity.notFound().build();
         }

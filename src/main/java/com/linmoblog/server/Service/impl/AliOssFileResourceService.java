@@ -5,6 +5,8 @@ import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.OSSException;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.linmoblog.server.Service.FileResourceService;
+import com.linmoblog.server.enums.ResultCode;
+import com.linmoblog.server.exception.CommonException;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +29,7 @@ import java.util.Objects;
  */
 @Service
 @Slf4j
-@ConditionalOnProperty(value = "ali.enable",havingValue = "true")
+@ConditionalOnProperty(value = "ali.enable", havingValue = "true")
 public class AliOssFileResourceService implements FileResourceService {
     @Value("${ali.accessKey}")
     private String accessKey;
@@ -54,7 +56,7 @@ public class AliOssFileResourceService implements FileResourceService {
     @Override
     public String upload(MultipartFile file) {
         if (file == null) {
-            throw new RuntimeException("文件不能为空");
+            throw new CommonException(ResultCode.FAILED.getCode(), "文件不能为空");
         }
         String absolutePath = uploadPath + getFileName(Objects.requireNonNull(file.getOriginalFilename())); //absolutePath 也是 ObjectName : 不包含 bucket 名称在内的完整路径
 
@@ -63,8 +65,7 @@ public class AliOssFileResourceService implements FileResourceService {
             oss.putObject(putObjectRequest);
             return "https://" + bucket + "." + endpoint + "/" + absolutePath;
         } catch (IOException e) {
-            log.error("文件上传失败：", e);
-            throw new RuntimeException("文件上传失败！");
+            throw new CommonException(ResultCode.SUCCESS_UPLOAD);
         }
     }
 
@@ -78,9 +79,8 @@ public class AliOssFileResourceService implements FileResourceService {
             try {
                 oss.deleteObject(bucket, objectName);
                 log.info("文件从 OSS 删除成功：" + filePath);
-
             } catch (OSSException | com.aliyun.oss.ClientException e) {
-                log.error("文件从 OSS 删除失败：" + filePath);
+                throw new CommonException(ResultCode.ERROR_FILE_DEL);
             }
 
         }

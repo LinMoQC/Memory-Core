@@ -3,6 +3,8 @@ package com.linmoblog.server.Service.impl;
 import cn.hutool.core.io.FileUtil;
 import com.linmoblog.server.Controller.ImageController;
 import com.linmoblog.server.Service.FileResourceService;
+import com.linmoblog.server.enums.ResultCode;
+import com.linmoblog.server.exception.CommonException;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,15 +50,15 @@ public class LocalFileResourceService implements FileResourceService {
 
         for (String fileUrl : files) {
             String fileName = fileUrl.substring(fileUrl.lastIndexOf("/"));
-            File file = new File(uploadDir +File.separator+ fileName);
+            File file = new File(uploadDir + File.separator + fileName);
             if (file.exists() && file.isFile()) {
                 if (file.delete()) {
                     log.info("文件删除成功：" + fileUrl);
                 } else {
-                    log.error("文件删除失败：" + fileUrl);
+                    throw new CommonException(ResultCode.ERROR_FILE_DEL);
                 }
             } else {
-                log.error("文件不存在或者不是一个文件：" + fileUrl);
+                throw new CommonException(ResultCode.ERROR_FILE_DEL);
             }
         }
     }
@@ -79,12 +81,11 @@ public class LocalFileResourceService implements FileResourceService {
                 Files.copy(file.getInputStream(), path);
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new CommonException(ResultCode.ERROR_UPLOAD);
         }
 
         // 创建一个可以访问此文件的URL
-        URI uri = MvcUriComponentsBuilder.fromMethodName(ImageController.class, "downloadFile", path.getFileName().toString())
-                .buildAndExpand(path.getFileName().toString()).toUri();
+        URI uri = MvcUriComponentsBuilder.fromMethodName(ImageController.class, "downloadFile", path.getFileName().toString()).buildAndExpand(path.getFileName().toString()).toUri();
 
         // 返回带有新创建资源的URL的响应
         return uri.toString();

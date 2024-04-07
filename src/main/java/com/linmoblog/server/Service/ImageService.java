@@ -24,12 +24,12 @@ public class ImageService {
 
 
     @Transactional
-    public Result<String> upload(MultipartFile file) {
+    public String upload(MultipartFile file) {
         //上传文件
         String fileUrl = resourceService.upload(file);
         //保存上传文件的地址到数据库
         imageMapper.upload(fileUrl);
-        return new Result<>(ResultCode.SUCCESS_UPLOAD, fileUrl);
+        return fileUrl;
     }
 
     @Transactional
@@ -40,8 +40,7 @@ public class ImageService {
         imageMapper.delete(imageUrlList);
     }
 
-    public Result<List<Image>> getImages() {
-        List<Image> result = imageMapper.getImages();
-        return new Result<List<Image>>(ResultCode.SUCCESS, result);
+    public List<Image> getImages() {
+        return imageMapper.getImages();
     }
 }

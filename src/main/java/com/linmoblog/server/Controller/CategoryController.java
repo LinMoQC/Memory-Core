@@ -43,7 +43,8 @@ public class CategoryController {
     @ApiOperationLog(description = "根据id修改分类")
     @Operation(summary ="根据id修改分类")
     @PostMapping("/protected/category/{id}")
-    public Result<Null> updateCategory(@PathVariable Integer id,@RequestBody Category category){
-        return categoryService.updateCategory(id,category);
+    public Result<Void> updateCategory(@PathVariable Integer id,@RequestBody Category category){
+        categoryService.updateCategory(id,category);
+        return Result.success();
     }
 }
