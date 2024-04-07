@@ -64,6 +64,8 @@ ali:
   bucketName: xxx # OSS bucketName
   uploadPath: xxx # OSS uploadPath
 ```
+
+
 ### 本地文件存储
 在 application.yml 中修改配置
 ```yml
@@ -71,6 +73,12 @@ local:
   enable: true # 是否启用本地文件存储
   uploadDir: xxx # 本地文件存储路径, 例如：/usr/local/upload 或 upload-dir 。
 ```
+## 一些规范
+### 异常体系
+1. 在 Service 层不推荐使用直接返回 Result 对象的方法，最佳方式是抛出 CommonException 异常，GlobalExceptionHandler.java 中会统一拦截 CommonException 异常，并将其转换为包含错误信息的 Result 对象返回。
+2. 在 Controller 层使用 Result 对象直接返回。
+> 具体示例参照 ImageController
+
 ## 环境搭建
 ### minio搭建
 推荐使用 `docker` 进行安装。

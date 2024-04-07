@@ -57,7 +57,11 @@ public class ImageController {
     }
 
 
-    // 提供一个GET请求来获取已上传的文件（假设你已经有处理下载的逻辑）
+    /**
+     * 提供一个GET请求来获取已上传的文件，此接口只用于获取本地存储的文件
+     * @param filename 文件名称
+     * @return 文件内容
+     */
     @GetMapping("/download/{filename}")
     public ResponseEntity<FileSystemResource> downloadFile(@PathVariable String filename) {
         // 获取文件路径
