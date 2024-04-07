@@ -1,6 +1,5 @@
 package com.linmoblog.server.Controller;
 
-import cn.hutool.core.io.FileUtil;
 import com.linmoblog.server.Entity.Image;
 import com.linmoblog.server.Entity.Result;
 import com.linmoblog.server.Service.ImageService;
@@ -11,18 +10,16 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.jdbc.Null;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/protect")
@@ -48,36 +45,8 @@ public class ImageController {
     @Operation(summary ="图片删除")
     @DeleteMapping("/delImg")
     public Result<Null> deleteFiles(@RequestBody List<String> fileNames) {
-        try {
-            List<String> failedDeletions = new ArrayList<>();
-            for (String fileName : fileNames) {
-//                String f = extractFileName(fileName);
-//                Path absolutePath = Paths.get(uploadPath).toAbsolutePath();
-//                String filePath = Paths.get(String.valueOf(absolutePath), f).toString();
-//                File file = new File(filePath);
-//
-//                String imageUrl = domain + "/upload/" + fileName;
-                imageService.deleteFile(fileName);
-//                if (file.exists()) {
-//                    if (!file.delete()) {
-//                        failedDeletions.add(f);
-//                    }
-//                } else {
-//                    System.out.println(filePath + " 文件不存在");
-//                    failedDeletions.add(f);
-//                }
-            }
-
-            if (failedDeletions.isEmpty()) {
-                return new Result<>(ResultCode.SUCCESS_FILE_DEL, null);
-            } else {
-                log.error("以下文件未删除：{}", String.join(", ", failedDeletions));
-                return new Result<>(ResultCode.ERROR_FILE_DEL, null);
-            }
-        } catch (Exception e) {
-            log.error("文件删除失败：{}", e.toString());
-            return new Result<>(ResultCode.ERROR_FILE_DEL, null);
-        }
+        imageService.deleteFile(fileNames);
+        return new Result<>(ResultCode.SUCCESS, null);
     }
 
     @ApiOperationLog(description = "获取所有图片")
@@ -87,12 +56,22 @@ public class ImageController {
         return imageService.getImages();
     }
 
+    @Value("${local.uploadDir}")
+    private String uploadDir;
 
-    public static String extractFileName(String url) {
-        int lastSlashIndex = url.lastIndexOf('/');
-        if (lastSlashIndex != -1) {
-            return url.substring(lastSlashIndex + 1);
+    // 提供一个GET请求来获取已上传的文件（假设你已经有处理下载的逻辑）
+    @GetMapping("/download/{filename}")
+    public ResponseEntity<FileSystemResource> downloadFile(@PathVariable String filename) {
+        // 获取文件路径
+        Path filePath = Paths.get(uploadDir, filename);
+        FileSystemResource file = new FileSystemResource(filePath.toFile());
+
+        if (file.exists()) {
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + filename + "\"")
+                    .body(file);
+        } else {
+            return ResponseEntity.notFound().build();
         }
-        return url;
     }
 }
