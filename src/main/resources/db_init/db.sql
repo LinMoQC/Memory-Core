@@ -173,3 +173,5 @@ INSERT INTO blog2.sys_config (id, config_name, config_key, config_value, is_priv
 INSERT INTO blog2.sys_config (id, config_name, config_key, config_value, is_private_flag) VALUES (13, '阿里云-endpoint', 'ali.endpoint', 'oss-cn-chengdu.aliyuncs.com', '0');
 INSERT INTO blog2.sys_config (id, config_name, config_key, config_value, is_private_flag) VALUES (16, '阿里云-上传路径', 'ali.uploadPath', 'blog/pic/', '0');
 INSERT INTO blog2.sys_config (id, config_name, config_key, config_value, is_private_flag) VALUES (17, '本地存储-上传路径', 'local.uploadDir', 'upload-dir', '1');
+INSERT INTO blog2.sys_config (id, config_name, config_key, config_value, is_private_flag) VALUES (19, 'JWT-key(设置复杂一点，否则会报错)', 'jwt.key', 'sdfasdfasdfq2w2easdfajsiodfhasuidhfasopidfhasiopdfuasidfasdfasdf', '1');
+INSERT INTO blog2.sys_config (id, config_name, config_key, config_value, is_private_flag) VALUES (21, 'JWT-过期时间(毫秒)', 'jwt.expire', '86400000', '0');

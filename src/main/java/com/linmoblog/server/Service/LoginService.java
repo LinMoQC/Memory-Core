@@ -6,6 +6,7 @@ import com.linmoblog.server.Entity.User;
 import com.linmoblog.server.Entity.UserInfo;
 import com.linmoblog.server.Utils.JWTTokenUtil;
 import com.linmoblog.server.enums.ResultCode;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +16,12 @@ import org.springframework.stereotype.Service;
 public class LoginService {
     @Autowired
     private LoginDao loginDao;
-
+    @Resource
+    private JWTTokenUtil jwtTokenUtil;
     public ResponseEntity<Result<String>> login(User user) {
         User res = loginDao.login(user);
         if(res != null) {
-            String token = JWTTokenUtil.CreateToken("admin");
+            String token = jwtTokenUtil.CreateToken("admin");
             Result<String> result = new Result<>(ResultCode.SUCCESS_LOGIN, token);
             return ResponseEntity.status(HttpStatus.OK).body(result);
         }

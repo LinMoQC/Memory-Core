@@ -29,6 +29,8 @@ public class ImageController {
     @Resource
     private ImageService imageService;
 
+    @Value("${local.uploadDir}")
+    private String uploadDir;
     @ApiOperationLog(description = "图片上传")
     @Operation(summary ="图片上传")
     @PostMapping("/upload")
@@ -56,8 +58,6 @@ public class ImageController {
         return imageService.getImages();
     }
 
-    @Value("${local.uploadDir}")
-    private String uploadDir;
 
     // 提供一个GET请求来获取已上传的文件（假设你已经有处理下载的逻辑）
     @GetMapping("/download/{filename}")

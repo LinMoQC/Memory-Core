@@ -4,7 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.linmoblog.server.Dao.NoteDao;
 import com.linmoblog.server.Entity.Note;
 import com.linmoblog.server.Entity.Result;
+import com.linmoblog.server.Mapper.NoteMapper;
 import com.linmoblog.server.enums.ResultCode;
+import jakarta.annotation.Resource;
 import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ import java.util.List;
 public class NoteService {
     @Autowired
     private NoteDao noteDao;
+    @Resource
+    private NoteMapper noteMapper;
     public Result<Null> addNote(Note note) {
         noteDao.addNote(note);
         return new Result<>(ResultCode.SUCCESS);
@@ -34,7 +38,7 @@ public class NoteService {
     }
 
     public Result<Null> updateNote(Integer id, Note note) {
-        noteDao.updateNote(id,note);
+        noteMapper.updateNote(id,note);
         return new Result<>(ResultCode.SUCCESS);
     }
 
