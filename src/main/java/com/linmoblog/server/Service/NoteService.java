@@ -4,6 +4,8 @@ import com.github.pagehelper.PageHelper;
 import com.linmoblog.server.Dao.NoteDao;
 import com.linmoblog.server.Entity.Note;
 import com.linmoblog.server.Entity.Result;
+import com.linmoblog.server.Entity.vo.NoteVO;
+import com.linmoblog.server.Mapper.CategoryMapper;
 import com.linmoblog.server.Mapper.NoteMapper;
 import com.linmoblog.server.enums.ResultCode;
 import jakarta.annotation.Resource;
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.crypto.Data;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class NoteService {
@@ -21,15 +24,19 @@ public class NoteService {
     private NoteDao noteDao;
     @Resource
     private NoteMapper noteMapper;
-    public Result<Null> addNote(Note note) {
-        noteDao.addNote(note);
-        return new Result<>(ResultCode.SUCCESS);
+    @Resource
+    private CategoryMapper categoryMapper;
+    @Transactional
+    public void addNote(Note note) {
+        noteMapper.addNote(note);
+
     }
 
 
-    public Result<List<Note>> getNoteList() {
-        List<Note> notes = noteDao.getNoteList();
-        return new Result<>(ResultCode.SUCCESS,notes);
+    public List<Note> getNoteList() {
+        //1. 查询
+        List<Note> noteList = noteMapper.getNoteList();
+        return noteList;
     }
 
     public Result<Null> deleteNote(List<Integer> notes) {
@@ -53,9 +60,10 @@ public class NoteService {
         return new Result<>(ResultCode.SUCCESS,noteList);
     }
 
-    public Result<List<Note>> searchNote(String title, String categories, String tagsLab, int top, Data time,String status) {
-        List<Note> noteList = noteDao.searchNote(title,categories,tagsLab,top,time,status);
-        return new Result<>(ResultCode.SUCCESS,noteList);
+    public List<NoteVO> searchNote(String title, String categories, String tagsLab, int top, Data time, String status) {
+        List<NoteVO> noteList = noteMapper.searchNote(title,categories,tagsLab,top,time,status);
+        // TODO ，联表查询
+        return noteList;
     }
 
     public Result<List<Note>> getTopNoteList() {

@@ -17,10 +17,10 @@ public class Note {
     private String noteContent;
     private String description;
     private String cover;
-    private String noteCategory;
+    private int noteCategory;
     private String noteTags;
-    private int isTop;
-    private String status;
+    private int isTop=0;
+    private String status = "public";
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
     private Date createTime;
 

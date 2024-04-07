@@ -13,6 +13,8 @@ spring:
     url: jdbc:mysql://${mysql.host:localhost}:${mysql.port}/${mysql.database}
     username: ${mysql.username}
     password: ${mysql.password}
+    hikari:
+      max-lifetime: 120000
 logging:
   config: classpath:logback-blog.xml
 

@@ -10,7 +10,6 @@ import java.util.List;
 @Mapper
 public interface CategoryMapper {
 
-    @Select("select * from categories")
     List<Category> getCategories();
 
     @Insert("insert into categories (category_title,path_name,introduce,icon,color) values(#{categoryTitle},#{pathName},#{introduce},#{icon},#{color})")

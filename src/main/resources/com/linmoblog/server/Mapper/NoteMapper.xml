@@ -40,8 +40,9 @@
             #{key}
         </foreach>
     </delete>
-    <select id="searchNote" resultType="com.linmoblog.server.Entity.Note">
-        SELECT * FROM notes
+    <select id="searchNote" resultType="com.linmoblog.server.Entity.vo.NoteVO">
+        SELECT
+        FROM notes
         <where>
             <if test="title != null and title != ''">
                 AND note_title LIKE CONCAT('%', #{title}, '%')

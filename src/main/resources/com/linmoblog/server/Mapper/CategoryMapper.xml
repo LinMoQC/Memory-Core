@@ -32,4 +32,7 @@
             #{key}
         </foreach>
     </delete>
+    <select id="getCategories" resultType="com.linmoblog.server.Entity.Category">
+        SELECT * FROM categories
+    </select>
 </mapper>

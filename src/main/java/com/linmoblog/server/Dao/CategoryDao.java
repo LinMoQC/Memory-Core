@@ -12,10 +12,6 @@ public class CategoryDao {
     @Autowired
     private CategoryMapper categoryMapper;
 
-    public List<Category> getCategories() {
-        return categoryMapper.getCategories();
-    }
-
     public void addCategory(Category category) {
         categoryMapper.addCategory(category);
     }

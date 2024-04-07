@@ -44,16 +44,14 @@ create table if not exists notes
     note_content  text                         not null comment '内容',
     description   text                         not null comment '文章描述',
     cover         varchar(300)                 not null comment '封面',
-    note_category varchar(10)                  not null comment '文章分类',
+    note_category int                 not null comment '文章分类key',
     note_tags     varchar(50)                  null comment '文章标签',
     status        varchar(10) default 'public' not null comment '发布状态',
     create_time   datetime                     not null comment '发布时间',
     update_time   datetime                     null,
     is_top        int         default 0        null,
     constraint title
-        unique (note_title),
-    constraint notes_ibfk_1
-        foreign key (note_category) references categories (category_title)
+        unique (note_title)
 )
     comment '文章表';
 
@@ -81,10 +79,7 @@ create table if not exists tag_level_2
     color      char(8) default '#ffffff' not null comment '标签颜色',
     father_tag varchar(20)               not null comment '父标签',
     constraint title
-        unique (title),
-    constraint fk_father_key
-        foreign key (father_tag) references tag_level_1 (title)
-            on update cascade on delete cascade
+        unique (title)
 )
     comment '二级标签表';
 

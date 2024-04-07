@@ -2,6 +2,7 @@ package com.linmoblog.server.Controller;
 
 import com.linmoblog.server.Entity.Note;
 import com.linmoblog.server.Entity.Result;
+import com.linmoblog.server.Entity.vo.NoteVO;
 import com.linmoblog.server.Service.NoteService;
 import com.linmoblog.server.aspect.ApiOperationLog;
 import io.swagger.v3.oas.annotations.Operation;
@@ -23,15 +24,16 @@ public class NoteController {
     @ApiOperationLog(description = "添加文章接口")
     @Operation(summary = "添加文章")
     @PostMapping("/protected/notes")
-    public Result<Null> addNote(@RequestBody Note note) {
-        return noteService.addNote(note);
+    public Result<Void> addNote(@RequestBody Note note) {
+        noteService.addNote(note);
+        return Result.success();
     }
 
     @ApiOperationLog(description = "获取所有文章")
     @Operation(summary = "获取所有文章")
     @GetMapping("/public/notes")
     public Result<List<Note>> getNoteList() {
-        return noteService.getNoteList();
+        return Result.success(noteService.getNoteList());
     }
 
     @ApiOperationLog(description = "获取加精文章")
@@ -72,13 +74,14 @@ public class NoteController {
     @ApiOperationLog(description = "搜索文章")
     @Operation(summary = "搜索文章")
     @PostMapping("/public/notes/search")
-    public Result<List<Note>> searchNote(@RequestParam(required = false) String title,
-                                         @RequestParam(required = false) String categories,
-                                         @RequestParam(required = false) String tagsLab,
-                                         @RequestParam(required = false, defaultValue = "-1") int top,
-                                         @RequestParam(required = false) Data time,
-                                         @RequestParam(required = false) String status) {
-        return noteService.searchNote(title, categories, tagsLab, top, time,status);
+    public Result<List<NoteVO>> searchNote(@RequestParam(required = false) String title,
+                                           @RequestParam(required = false) String categories,
+                                           @RequestParam(required = false) String tagsLab,
+                                           @RequestParam(required = false, defaultValue = "-1") int top,
+                                           @RequestParam(required = false) Data time,
+                                           @RequestParam(required = false) String status) {
+        List<NoteVO> noteVOS = noteService.searchNote(title, categories, tagsLab, top, time, status);
+        return Result.success(noteVOS);
     }
 
 }
