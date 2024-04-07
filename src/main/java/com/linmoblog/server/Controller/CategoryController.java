@@ -22,7 +22,7 @@ public class CategoryController {
     @ApiOperationLog(description = "返回所有分类")
     @Operation(summary = "返回所有分类")
     @GetMapping("/public/category")
-    private Result<List<Category>> getCategoryList(){
+    public Result<List<Category>> getCategoryList(){
         return categoryService.getCategoryList();
     }
 

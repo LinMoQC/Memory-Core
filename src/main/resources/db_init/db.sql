@@ -145,8 +145,9 @@ VALUES ('default');
 insert into user (username, password) values ('8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',
                                               '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92');
 
-insert into web_info (user_account,user_password) values ('admin','123456')
+insert into web_info (user_account,user_password) values ('admin','123456');
 
+insert into web_info (blog_title,blog_icp,blog_author,blog_description,blog_domain) values ('Memory','粤ICP备XXXXXXXX号-1','Memory','这里是Memory','127.0.0.1');
 
 
 
