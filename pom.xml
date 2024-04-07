@@ -99,6 +99,12 @@
             <version>4.4.0</version>
         </dependency>
 
+        <!-- 王开琦-增加阿里云OSS存储资源 -->
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>3.12.0</version>
+        </dependency>
         <!-- 整合minio 用于文件上传-->
         <dependency>
             <groupId>io.minio</groupId>

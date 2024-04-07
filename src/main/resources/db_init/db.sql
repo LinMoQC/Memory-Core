@@ -152,3 +152,24 @@ insert into web_info (blog_title,blog_icp,blog_author,blog_description,blog_doma
 
 
 
+-- spring参数配置表 ，可以将 application 中的一些配置添加到数据库。
+-- auto-generated definition
+create table sys_config
+(
+    id           int auto_increment comment 'id'
+        primary key,
+    config_name  varchar(128) not null comment '名称',
+    config_key   varchar(64)  not null comment 'spring配置属性',
+    config_value varchar(256) null comment '值',
+    is_private_flag  char         not null comment '1 私用 0 公开'
+)comment 'spring参数配置表';
+INSERT INTO `sys_config` (`id`, `config_name`, `config_key`, `config_value`, `is_private_flag`) VALUES (1, 'QQ邮箱号', 'spring.mail.username', '', '1');
+INSERT INTO `sys_config` (`id`, `config_name`, `config_key`, `config_value`, `is_private_flag`) VALUES (2, 'QQ邮箱授权码', 'spring.mail.password', '', '1');
+INSERT INTO `sys_config` (`id`, `config_name`, `config_key`, `config_value`, `is_private_flag`) VALUES (5, '默认存储平台', 'store.type', 'ali', '0');
+INSERT INTO `sys_config` (`id`, `config_name`, `config_key`, `config_value`, `is_private_flag`) VALUES (6, '本地存储启用状态', 'local.enable', 'true', '0');
+INSERT INTO `sys_config` (`id`, `config_name`, `config_key`, `config_value`, `is_private_flag`) VALUES (7, '阿里云存储启用状态', 'ali.enable', 'true', '0');
+INSERT INTO `sys_config` (`id`, `config_name`, `config_key`, `config_value`, `is_private_flag`) VALUES (10, '阿里云-accessKey', 'ali.accessKey', '', '1');
+INSERT INTO `sys_config` (`id`, `config_name`, `config_key`, `config_value`, `is_private_flag`) VALUES (11, '阿里云-secretKey', 'ali.secretKey', '', '1');
+INSERT INTO `sys_config` (`id`, `config_name`, `config_key`, `config_value`, `is_private_flag`) VALUES (12, '阿里云-bucket', 'ali.bucket', 'wkq-img', '1');
+INSERT INTO `sys_config` (`id`, `config_name`, `config_key`, `config_value`, `is_private_flag`) VALUES (13, '阿里云-endpoint', 'ali.downloadUrl', 'oss-cn-chengdu.aliyuncs.com', '0');
+INSERT INTO `sys_config` (`id`, `config_name`, `config_key`, `config_value`, `is_private_flag`) VALUES (16, '阿里云-上传路径', 'ali.uploadPath', 'blog/pic/', '0');

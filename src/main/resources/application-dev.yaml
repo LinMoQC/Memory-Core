@@ -1,0 +1,6 @@
+mysql:
+  host: 1.92.84.94
+  port: 3306
+  database: blog2
+  username: root
+  password: Zbb010719!
