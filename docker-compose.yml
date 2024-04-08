@@ -1,0 +1,29 @@
+version: '1.0.0'
+
+networks:
+  my_network:
+
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: memoryblog
+      MYSQL_ROOT_PASSWORD: DB_PASSWORD
+    networks:
+      - my_network
+
+  backend:
+    build: ./
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/memoryblog?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: DB_PASSWORD
+    networks:
+      - my_network
+#    restart: always
