@@ -40,8 +40,10 @@ Memory-Core
 **在yml文件中absolutePath配置应为：classpath:/upload/**
 ```bash
 cd Memory-Core
-mvn spring-boot:run
+mvn clean package -DskipTests
+docker-compose up
 
+//build.sh好像不能用???
 初始账号：
 admin
 123456
