@@ -2,6 +2,7 @@ package com.linmoblog.server.Controller;
 
 import com.linmoblog.server.Entity.Category;
 import com.linmoblog.server.Entity.Result;
+import com.linmoblog.server.Entity.vo.CategoryVO;
 import com.linmoblog.server.Service.CategoryService;
 import com.linmoblog.server.aspect.ApiOperationLog;
 import com.linmoblog.server.enums.ResultCode;
@@ -25,7 +26,7 @@ public class CategoryController {
     @ApiOperationLog(description = "返回所有分类")
     @Operation(summary = "返回所有分类")
     @GetMapping("/public/category")
-    public Result<List<Category>> getCategoryList(){
+    public Result<List<CategoryVO>> getCategoryList(){
        return Result.success(categoryService.getCategoryList());
     }
 

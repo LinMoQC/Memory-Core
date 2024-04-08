@@ -42,28 +42,50 @@
     </delete>
     <select id="searchNote" resultType="com.linmoblog.server.Entity.vo.NoteVO">
         SELECT
-        FROM notes
-        <where>
-            <if test="title != null and title != ''">
-                AND note_title LIKE CONCAT('%', #{title}, '%')
-            </if>
-            <if test="categories != null">
-                AND note_category = #{categories}
-            </if>
-            <if test="tagsLab != null">
-                AND note_tags = #{tagsLab}
-            </if>
-            <if test="top != null and top != -1">
-                AND is_top = #{top}
-            </if>
-            <if test="time != null">
-                AND create_time = #{time}
-            </if>
+        n.note_key,
+        n.note_title,
+        n.note_content,
+        n.description,
+        n.cover,
+        n.note_category,
+        n.note_tags,
+        n.status,
+        n.create_time,
+        n.update_time,
+        n.is_top,
+        c.category_title as noteCategoryName
+        FROM notes n
+        INNER JOIN categories c ON n.note_category = c.category_key
+        WHERE 1=1
+        <if test="bo.title != null and bo.title != ''">
+            AND n.note_title LIKE CONCAT('%', #{bo.title}, '%')
+        </if>
+        <if test="bo.categories != null">
+            AND c.category_title = #{bo.categories}
+        </if>
 
-            <if test="status != null">
-                AND status = #{status}
-            </if>
-        </where>
+        <if test="bo.top != null and bo.top != -1">
+            AND n.is_top = #{bo.top}
+        </if>
+
+        <if test="bo.startTime != null">
+            AND n.create_time &gt;= #{bo.startTime}
+        </if>
+        <if test="bo.endTime != null">
+            AND n.create_time &lt;= #{bo.endTime}
+        </if>
+
+        <if test="bo.status != null ">
+            AND n.status = #{bo.status}
+        </if>
         ORDER BY create_time DESC
+    </select>
+    <select id="getNoteCountByCategoryKey" resultType="com.linmoblog.server.Entity.vo.Pair">
+        SELECT note_category AS pairKey, COUNT(*) AS pairValue
+        FROM notes
+        WHERE note_category IN <foreach collection="categoryKeyList" item="key" open="(" separator="," close=")">
+            #{key}
+        </foreach>
+        GROUP BY note_category
     </select>
 </mapper>

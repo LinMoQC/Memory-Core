@@ -2,6 +2,7 @@ package com.linmoblog.server.Controller;
 
 import com.linmoblog.server.Entity.Note;
 import com.linmoblog.server.Entity.Result;
+import com.linmoblog.server.Entity.bo.NoteSearchBO;
 import com.linmoblog.server.Entity.vo.NoteVO;
 import com.linmoblog.server.Service.NoteService;
 import com.linmoblog.server.aspect.ApiOperationLog;
@@ -74,13 +75,8 @@ public class NoteController {
     @ApiOperationLog(description = "搜索文章")
     @Operation(summary = "搜索文章")
     @PostMapping("/public/notes/search")
-    public Result<List<NoteVO>> searchNote(@RequestParam(required = false) String title,
-                                           @RequestParam(required = false) String categories,
-                                           @RequestParam(required = false) String tagsLab,
-                                           @RequestParam(required = false, defaultValue = "-1") int top,
-                                           @RequestParam(required = false) Data time,
-                                           @RequestParam(required = false) String status) {
-        List<NoteVO> noteVOS = noteService.searchNote(title, categories, tagsLab, top, time, status);
+    public Result<List<NoteVO>> searchNote(@RequestBody NoteSearchBO query) {
+        List<NoteVO> noteVOS = noteService.searchNote(query);
         return Result.success(noteVOS);
     }
 

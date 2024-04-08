@@ -1,10 +1,11 @@
 package com.linmoblog.server.Service;
 
-import com.github.pagehelper.PageHelper;
 import com.linmoblog.server.Dao.NoteDao;
 import com.linmoblog.server.Entity.Note;
 import com.linmoblog.server.Entity.Result;
+import com.linmoblog.server.Entity.bo.NoteSearchBO;
 import com.linmoblog.server.Entity.vo.NoteVO;
+import com.linmoblog.server.Entity.vo.Pair;
 import com.linmoblog.server.Mapper.CategoryMapper;
 import com.linmoblog.server.Mapper.NoteMapper;
 import com.linmoblog.server.enums.ResultCode;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.crypto.Data;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,8 +62,8 @@ public class NoteService {
         return new Result<>(ResultCode.SUCCESS,noteList);
     }
 
-    public List<NoteVO> searchNote(String title, String categories, String tagsLab, int top, Data time, String status) {
-        List<NoteVO> noteList = noteMapper.searchNote(title,categories,tagsLab,top,time,status);
+    public List<NoteVO> searchNote(NoteSearchBO bo) {
+        List<NoteVO> noteList = noteMapper.searchNote(bo);
         // TODO ，联表查询
         return noteList;
     }
@@ -69,5 +71,12 @@ public class NoteService {
     public Result<List<Note>> getTopNoteList() {
         List<Note> noteList = noteDao.getTopNoteList();
         return new Result<>(ResultCode.SUCCESS,noteList);
+    }
+
+    public List<Pair<Integer, Integer>> getNoteCountByCategoryKey(List<Integer> categoryKeyList) {
+        if (categoryKeyList.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return noteMapper.getNoteCountByCategoryKey(categoryKeyList);
     }
 }

@@ -11,13 +11,13 @@ import lombok.Data;
  */
 @Data
 public class CategoryVO {
-    private long categoryKey;
+    private Integer categoryKey;
     private String categoryTitle;
     private String pathName;
     private String introduce;
     private String icon;
     private String color;
-    private long noteCount;
+    private Integer noteCount = 0;
 
     public CategoryVO(Category category) {
         this.categoryKey = category.getCategoryKey();
@@ -27,7 +27,7 @@ public class CategoryVO {
         this.icon = category.getIcon();
         this.color = category.getColor();
     }
-    public CategoryVO(Category category,long noteCount) {
+    public CategoryVO(Category category,Integer noteCount) {
         this(category);
         this.noteCount = noteCount;
     }

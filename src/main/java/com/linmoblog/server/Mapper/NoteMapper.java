@@ -1,7 +1,9 @@
 package com.linmoblog.server.Mapper;
 
 import com.linmoblog.server.Entity.Note;
+import com.linmoblog.server.Entity.bo.NoteSearchBO;
 import com.linmoblog.server.Entity.vo.NoteVO;
+import com.linmoblog.server.Entity.vo.Pair;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -32,8 +34,10 @@ public interface NoteMapper {
     @Select("SELECT * FROM notes WHERE is_top = 0 ORDER BY update_time DESC LIMIT #{start}, #{pageSize}")
     List<Note> getNotePages(Integer start, Integer pageSize);
 
-    List<NoteVO> searchNote(@Param("title") String title, @Param("categories") String categories, @Param("tagsLab") String tagsLab, @Param("top") int top, @Param("time") Data time, @Param("status") String status);
+    List<NoteVO> searchNote(@Param("bo") NoteSearchBO bo);
 
     @Select("select * from notes where is_top = 1")
     List<Note> getTopNoteList();
+
+    List<Pair<Integer, Integer>> getNoteCountByCategoryKey(@Param("categoryKeyList") List<Integer> categoryKeyList);
 }

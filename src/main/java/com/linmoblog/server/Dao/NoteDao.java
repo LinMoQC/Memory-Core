@@ -37,9 +37,9 @@ public class NoteDao {
         return noteMapper.getNotePages(start,pageSize);
     }
 
-    public List<Note> searchNote(String title, String categories, String tagsLab, int top, Data time,String status) {
-        return noteMapper.searchNote(title,categories,tagsLab,top,time,status);
-    }
+//    public List<Note> searchNote(String title, String categories, String tagsLab, int top, Data time,String status) {
+//        return noteMapper.searchNote(title,categories,tagsLab,top,time,status);
+//    }
 
     public List<Note> getTopNoteList() {
         return noteMapper.getTopNoteList();

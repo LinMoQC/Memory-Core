@@ -32,6 +32,8 @@ public class NoteVO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")
     private Date updateTime;
 
+    public NoteVO() {
+    }
 
     public NoteVO(Note note) {
         this.noteKey = note.getNoteKey();
