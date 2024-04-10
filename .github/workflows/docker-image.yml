@@ -14,10 +14,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Create timestamp
+      id: timestamp
+      run: echo "::set-output name=time::$(date +%s)"
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag memory_core:$(date +%s)
+      run: docker build . --file Dockerfile --tag memory_core:${{ steps.timestamp.outputs.time }}
     - name: Log in to Docker Hub
       run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Push image to Docker Hub
-      run: docker push memory_core:$(date +%s)
-
+      run: docker push memory_core:${{ steps.timestamp.outputs.time }}
