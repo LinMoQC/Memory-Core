@@ -1,4 +1,4 @@
-ALTER DATABASE memory CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER DATABASE memory CHARACTER SET utf8;
 use memory;
 create table if not exists categories
 (
