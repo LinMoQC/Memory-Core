@@ -132,25 +132,6 @@ create table if not exists web_info
         unique (blog_title)
 );
 
-INSERT IGNORE INTO categories (category_title, introduce, icon, color, path_name)
-VALUES ('default', 'This is the introduction for the default category', 'default', '#fff', 'default');
-
-INSERT INTO tag_level_1 (title)
-VALUES ('default');
-
-INSERT INTO web_info (user_account, user_password, blog_title,blog_author, blog_domain,blog_icp,blog_description,user_avatar)
-VALUES ('admin', '123456', 'Memory', 'Memory','127.0.0.1','粤ICP备XXXXXXXX号-1','这里是Memory','https://cdn.jsdelivr.net/gh/LinMoQC/gitTest@master/Cache_4d1f4da2034512f3..jpg');
-
-
-
-# admin 123456
-insert into user (username, password) values ('8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',
-                                              '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92');
-INSERT INTO notes (note_key, note_title, note_content, description, cover, note_category, note_tags, status, create_time, update_time, is_top) VALUES (NULL, ' Hi！Memory', '## Memory\r\n\r\n欢迎使用 **Memory** 个人主题博客。本项目采用 **React + SpringBoot** 前后端分离，以优美的动画和可爱的画风为主题，由作者**林陌青川**维护。目前已支持使用 Docker 上线。\r\n\r\n## 创作初心\r\n\r\n作为我的处女作品，我对 **Memory** 投入了许多时间。从 23 年年底开始一直到 24 年的清明节才算是正式完工。也许 **Memory** 并不完美，但也是我的呕心沥血之作。想起创作期间无数个凌晨，碰到 bug 一写就是一晚上。现在回头望去，留给我的已经是珍贵的回忆。\r\n\r\n## 为什么起名 Memory?\r\n\r\n关于 **Memory** 的背后其实有一段悲伤的故事。24 年年初因为一些琐事，我没能回去贵州，而我的外祖母在今年的 3 月初不幸意外离世，而我却没有见到她最后一面……\r\n\r\n## 作者寄语\r\n\r\n如果你觉得 **Memory** 并不完美，那么就去构建一个属于你自己的 **\"Memory\"** 吧。本项目将在 **V2** 版本重构采用 **NextJS**，作者再次承诺后续所有版本皆是开源。\r\n\r\n## Star History \r\n\r\n![star](https://api.star-history.com/svg?repos=LinMoQC/Memory-Blog&type=Date&theme=dark)\r\n\r\n', '给所有用户的一封信', 'http://8.210.172.244:8080/upload/540a301a-50fd-472a-bac8-020fac650d08.jpg', '生活', '2', 'public', '2024-04-10 05:31:00', '2024-04-10 05:48:59', '0');
-
-
-
-
 -- spring参数配置表 ，可以将 application 中的一些配置添加到数据库。
 -- auto-generated definition
 create table sys_config
@@ -174,3 +155,21 @@ INSERT INTO sys_config (id, config_name, config_key, config_value, is_private_fl
 INSERT INTO sys_config (id, config_name, config_key, config_value, is_private_flag) VALUES (17, '本地存储-上传路径', 'local.uploadDir', 'upload-dir', '1');
 INSERT INTO sys_config (id, config_name, config_key, config_value, is_private_flag) VALUES (19, 'JWT-key(设置复杂一点，否则会报错)', 'jwt.key', 'sdfasdfasdfq2w2easdfajsiodfhasuidhfasopidfhasiopdfuasidfasdfasdf', '1');
 INSERT INTO sys_config (id, config_name, config_key, config_value, is_private_flag) VALUES (21, 'JWT-过期时间(毫秒)', 'jwt.expire', '86400000', '0');
+
+
+
+INSERT IGNORE INTO categories (category_title, introduce, icon, color, path_name)
+VALUES ('default', 'This is the introduction for the default category', 'default', '#fff', 'default');
+
+INSERT INTO tag_level_1 (title)
+VALUES ('default');
+
+INSERT INTO web_info (user_account, user_password, blog_title,blog_author, blog_domain,blog_icp,blog_description,user_avatar)
+VALUES ('admin', '123456', 'Memory', 'Memory','127.0.0.1','粤ICP备XXXXXXXX号-1','这里是Memory','https://cdn.jsdelivr.net/gh/LinMoQC/gitTest@master/Cache_4d1f4da2034512f3..jpg');
+
+
+
+# admin 123456
+insert into user (username, password) values ('8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',
+                                              '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92');
+INSERT INTO notes (note_title, note_content, description, cover, note_category, note_tags, status, create_time, update_time, is_top) VALUES ('Hi！Memory', '## Memory\r\n\r\n欢迎使用 **Memory** 个人主题博客。本项目采用 **React + SpringBoot** 前后端分离，以优美的动画和可爱的画风为主题，由作者**林陌青川**维护。目前已支持使用 Docker 上线。\r\n\r\n## 创作初心\r\n\r\n作为我的处女作品，我对 **Memory** 投入了许多时间。从 23 年年底开始一直到 24 年的清明节才算是正式完工。也许 **Memory** 并不完美，但也是我的呕心沥血之作。想起创作期间无数个凌晨，碰到 bug 一写就是一晚上。现在回头望去，留给我的已经是珍贵的回忆。\r\n\r\n## 为什么起名 Memory?\r\n\r\n关于 **Memory** 的背后其实有一段悲伤的故事。24 年年初因为一些琐事，我没能回去贵州，而我的外祖母在今年的 3 月初不幸意外离世，而我却没有见到她最后一面……\r\n\r\n## 作者寄语\r\n\r\n如果你觉得 **Memory** 并不完美，那么就去构建一个属于你自己的 **\"Memory\"** 吧。本项目将在 **V2** 版本重构采用 **NextJS**，作者再次承诺后续所有版本皆是开源。\r\n\r\n## Star History \r\n\r\n![star](https://api.star-history.com/svg?repos=LinMoQC/Memory-Blog&type=Date&theme=dark)\r\n\r\n', '给所有用户的一封信', 'http://8.210.172.244:8080/upload/540a301a-50fd-472a-bac8-020fac650d08.jpg', '1', '1', 'public', '2024-04-10 05:31:00', '2024-04-10 05:48:59', '0');
