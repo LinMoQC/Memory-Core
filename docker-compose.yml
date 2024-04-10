@@ -17,7 +17,7 @@ services:
       - ./db_init:/docker-entrypoint-initdb.d
 
   backend:
-    build: ./
+    image: karensky/memory_core:1.0.0
     ports:
       - "8080:8080"
     depends_on:
