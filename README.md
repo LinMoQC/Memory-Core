@@ -35,7 +35,7 @@ Memory-Core
 ## 使用
 ```bash
 cd Memory-Core
-docker-compose up
+docker-compose up -d
 
 初始账号：
 admin
