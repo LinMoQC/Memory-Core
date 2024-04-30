@@ -10,9 +10,9 @@ spring:
       max-request-size: 100MB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://${mysql.host:localhost}:${mysql.port}/${mysql.database}
-#    username: ${mysql.username}
-#    password: ${mysql.password}
+    url: jdbc:mysql://${mysql.host:localhost}:${mysql.port}/${mysql.database}
+    username: ${mysql.username}
+    password: ${mysql.password}
     hikari:
       max-lifetime: 120000
 logging:

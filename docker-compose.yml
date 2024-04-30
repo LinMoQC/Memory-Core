@@ -1,10 +1,10 @@
-version: '1.0.0'
+version: '3'
 
 networks:
   my_network:
 
 services:
-  db:
+  memory_db:
     image: mysql:5.7
     ports:
       - "3307:3306"
@@ -16,16 +16,23 @@ services:
     volumes:
       - ./db_init:/docker-entrypoint-initdb.d
 
-  backend:
+  memory_backend:
     image: karensky/memory_core:1.0.0
     ports:
       - "8080:8080"
-    depends_on:
-      - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/memory?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://memory_db:3306/memory?useSSL=false&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: memory20240409
     networks:
       - my_network
     restart: always
+
+  memory_front:
+    image: karensky/memory_blog:latest
+    ports:
+      - "81:80"
+    depends_on:
+      - memory_backend
+    networks:
+      - my_network
