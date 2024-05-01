@@ -34,7 +34,8 @@ Memory-Core
 
 ## 使用
 ```bash
-cd Memory-Core
+cd && mkdir -p Memory/core && cd $_
+wget https://cdn.jsdelivr.net/gh/LinMoQC/Memory-Core@master/docker-compose.yml
 docker-compose up -d
 
 初始账号：
