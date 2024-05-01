@@ -36,7 +36,7 @@ Memory-Core
 ```bash
 cd && mkdir -p Memory/core && cd $_
 mkdir -p db_init
-wget https://cdn.jsdelivr.net/gh/LinMoQC/Memory-Core@master/db_init/
+wget https://cdn.jsdelivr.net/gh/LinMoQC/Memory-Core@master/db_init/init/sql
 wget https://cdn.jsdelivr.net/gh/LinMoQC/Memory-Core@master/docker-compose.yml
 docker-compose up -d
 
