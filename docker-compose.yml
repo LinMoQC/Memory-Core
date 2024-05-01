@@ -27,12 +27,3 @@ services:
     networks:
       - my_network
     restart: always
-
-  memory_front:
-    image: karensky/memory_blog:latest
-    ports:
-      - "81:80"
-    depends_on:
-      - memory_backend
-    networks:
-      - my_network
