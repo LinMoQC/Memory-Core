@@ -1,5 +1,5 @@
-ALTER DATABASE memory CHARACTER SET utf8;
 use memory;
+SET NAMES 'utf8mb4';
 create table if not exists categories
 (
     category_key   int unsigned auto_increment comment '唯一标识'
@@ -143,6 +143,8 @@ create table if not exists sys_config
     config_value varchar(256) null comment '值',
     is_private_flag  char         not null comment '1 私用 0 公开'
 )comment 'spring参数配置表';
+
+
 INSERT INTO sys_config (id, config_name, config_key, config_value, is_private_flag) VALUES (1, 'QQ邮箱号', 'spring.mail.username', '', '1');
 INSERT INTO sys_config (id, config_name, config_key, config_value, is_private_flag) VALUES (2, 'QQ邮箱授权码', 'spring.mail.password', '', '1');
 INSERT INTO sys_config (id, config_name, config_key, config_value, is_private_flag) VALUES (6, '本地存储启用状态', 'local.enable', 'true', '0');
