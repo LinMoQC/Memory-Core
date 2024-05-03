@@ -167,7 +167,7 @@ INSERT INTO tag_level_1 (title)
 VALUES ('default');
 
 INSERT INTO web_info (user_account, user_password, blog_title,blog_author, blog_domain,blog_icp,blog_description,user_avatar)
-VALUES ('admin', '123456', 'Memory', 'Memory','127.0.0.1','粤ICP备XXXXXXXX号-1','这里是Memory','https://cdn.jsdelivr.net/gh/LinMoQC/gitTest@master/Cache_4d1f4da2034512f3..jpg');
+VALUES ('admin', '123456', 'Memory', 'Memory','127.0.0.1','粤ICP备XXXXXXXX号-1','这里是Memory','https://img.picgo.net/2024/05/04/avatar144c348b2adf3b5c.jpeg');
 
 
 
@@ -175,4 +175,4 @@ VALUES ('admin', '123456', 'Memory', 'Memory','127.0.0.1','粤ICP备XXXXXXXX号-
 insert into user (username, password) values ('8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',
                                               '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92');
 
-INSERT INTO notes (note_title, note_content, description, cover, note_category, note_tags, status, create_time, update_time, is_top) VALUES ('Hi! Memory', '## Memory\r\n\r\n欢迎使用 **Memory** 个人主题博客。本项目采用 **React + SpringBoot** 前后端分离，以优美的动画和可爱的画风为主题，由作者**林陌青川**维护。目前已支持使用 Docker 上线。\r\n\r\n## 创作初心\r\n\r\n作为我的处女作品，我对 **Memory** 投入了许多时间。从 23 年年底开始一直到 24 年的清明节才算是正式完工。也许 **Memory** 并不完美，但也是我的呕心沥血之作。想起创作期间无数个凌晨，碰到 bug 一写就是一晚上。现在回头望去，留给我的已经是珍贵的回忆。\r\n\r\n## 为什么起名 Memory?\r\n\r\n关于 **Memory** 的背后其实有一段悲伤的故事。24 年年初因为一些琐事，我没能回去贵州，而我的外祖母在今年的 3 月初不幸意外离世，而我却没有见到她最后一面……\r\n\r\n## 作者寄语\r\n\r\n如果你觉得 **Memory** 并不完美，那么就去构建一个属于你自己的 **\"Memory\"** 吧。本项目将在 **V2** 版本重构采用 **NextJS**，作者再次承诺后续所有版本皆是开源。\r\n\r\n## Star History \r\n\r\n![star](https://api.star-history.com/svg?repos=LinMoQC/Memory-Blog&type=Date&theme=dark)\r\n\r\n', '给所有用户的一封信', 'https://cdn.jsdelivr.net/gh/LinMoQC/LinmoBlogCDN@master/memory_logo.png', '1', '1', 'public', '2024-04-10 05:31:00', '2024-04-10 05:48:59', '0');
+INSERT INTO notes (note_title, note_content, description, cover, note_category, note_tags, status, create_time, update_time, is_top) VALUES ('Hi! Memory', '## Memory\r\n\r\n欢迎使用 **Memory** 个人主题博客。本项目采用 **React + SpringBoot** 前后端分离，以优美的动画和可爱的画风为主题，由作者**林陌青川**维护。目前已支持使用 Docker 上线。\r\n\r\n## 创作初心\r\n\r\n作为我的处女作品，我对 **Memory** 投入了许多时间。从 23 年年底开始一直到 24 年的清明节才算是正式完工。也许 **Memory** 并不完美，但也是我的呕心沥血之作。想起创作期间无数个凌晨，碰到 bug 一写就是一晚上。现在回头望去，留给我的已经是珍贵的回忆。\r\n\r\n## 为什么起名 Memory?\r\n\r\n关于 **Memory** 的背后其实有一段悲伤的故事。24 年年初因为一些琐事，我没能回去贵州，而我的外祖母在今年的 3 月初不幸意外离世，而我却没有见到她最后一面……\r\n\r\n## 作者寄语\r\n\r\n如果你觉得 **Memory** 并不完美，那么就去构建一个属于你自己的 **\"Memory\"** 吧。本项目将在 **V2** 版本重构采用 **NextJS**，作者再次承诺后续所有版本皆是开源。\r\n\r\n## Star History \r\n\r\n![star](https://api.star-history.com/svg?repos=LinMoQC/Memory-Blog&type=Date&theme=dark)\r\n\r\n', '给所有用户的一封信', 'https://img.picgo.net/2024/05/04/memory_logobc201abe6593abcc.png', '1', '1', 'public', '2024-04-10 05:31:00', '2024-04-10 05:48:59', '0');
